@@ -25,23 +25,55 @@
         }
     }
 
-    
+    function my_base_convert($numstring, $frombase, $tobase) 
+    {
+      $chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+      $tostring = substr($chars, 0, $tobase);
+
+      $length = strlen($numstring);
+      $result = '';
+      for ($i = 0; $i < $length; $i++)
+      {
+          $number[$i] = strpos($chars, $numstring[$i]);
+      }
+      do
+      {
+        $divide = 0;
+        $newlen = 0;
+        for ($i = 0; $i < $length; $i++)
+        {
+            $divide = $divide * $frombase + $number[$i];
+            if ($divide >= $tobase)
+            {
+                $number[$newlen++] = (int)($divide / $tobase);
+                $divide = $divide % $tobase;
+            } elseif ($newlen > 0)
+            {
+                $number[$newlen++] = 0;
+            }
+        }
+        $length = $newlen;
+        $result = $tostring[$divide] . $result;
+      } while ($newlen != 0);
+      return $result;
+    }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $input_time = trim($_POST["time_type"]);
         $input_student_number = trim($_POST["student_number"]);
-        $input_student_number = (int) $student_number;
-        $input_student_number = dechex($student_number)[:7];
-        header("location: registration.php?".urlencode($student_number));
+
+        $input_student_number = substr(my_base_convert($input_student_number, 10, 16),0,8);
+        //header("location: ".$input_student_number);
 
         $u = "SELECT student_number FROM attendees WHERE student_number ='$input_student_number' AND event_id='$event_id' AND time_in IS NOT NULL";
         $uu = $mysqli->query($u);
         $u = "SELECT student_number FROM student_info WHERE student_number ='$input_student_number'";
         $uu2 = $mysqli->query($u);
+
         if (empty($input_student_number)) {
             $student_number_err = "WARNING: Invalid QR Pass!";
         } elseif (mysqli_num_rows($uu2) < 1 ) {
-            $student_number_err = "WARNING: QR Pass is not registered! <br> Please approach the event admin.";
+            $student_number_err = "WARNING: QR Pass is not registered! <br> Please approach the event admin.".$input_student_number;
         } elseif ((mysqli_num_rows($uu) > 0) && ($input_time == "In")) {
             $student_number_err = "WARNING: QR Pass already used. <br> Please approach the event admin.";
         } elseif (True) { //nag True muna ako paki ayos pls.
@@ -328,7 +360,7 @@
                 var input = document.querySelector('#student_number');
                 input.addEventListener('keyup', checkLength);
                 function checkLength(e){
-                    if(e.target.value.length>=20){
+                    if(e.target.value.length>600){
                         document.forms["form"].submit();
                     }
                 }
