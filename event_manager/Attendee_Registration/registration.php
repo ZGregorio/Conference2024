@@ -339,7 +339,7 @@
                 ?>
                 </select>
                   <br>
-                <input type="text" style="background-image: none; color: black; font-size:50pt; width:350px; margin: 0 auto; margin-left: auto; margin-right: auto; text-align:center;" name="student_number" id="student_number" class="form-control" value="<?php echo $student_number?>" autofocus/>
+                <input type="text" style="background-image: none; color: black; font-size:50pt; width:350px; margin: 0 auto; margin-left: auto; margin-right: auto; text-align:center;" name="student_number" id="student_number" class="form-control" autofocus/>
                 <p style="font-size:20px; color:red"> <?php echo $student_number_err; ?> </p>
                 <p style="font-size:20px; color:red"> <?php echo $time_out_err; ?> </p>
                 <span class=""> <?php 
