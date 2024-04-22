@@ -1,2 +1,3 @@
 Please put it inside xampp/htdocs/...
 The database name should be "eventdb"
+Works with QR passes starting with 0.
