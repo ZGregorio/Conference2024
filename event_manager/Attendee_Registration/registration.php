@@ -62,7 +62,12 @@
         $input_time = trim($_POST["time_type"]);
         $input_student_number = trim($_POST["student_number"]);
 
-        $input_student_number = substr(my_base_convert($input_student_number, 10, 16),0,8);
+        $input_student_number = my_base_convert($input_student_number, 10, 16);
+        if (strlen($input_student_number) != 32) {
+          $input_student_number = "0".$input_student_number;
+        }
+
+        $input_student_number = substr($input_student_number, 0, 8);
         //header("location: ".$input_student_number);
 
         $u = "SELECT student_number FROM attendees WHERE student_number ='$input_student_number' AND event_id='$event_id' AND time_in IS NOT NULL";
