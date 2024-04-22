@@ -76,15 +76,15 @@
         $uu2 = $mysqli->query($u);
 
         if (empty($input_student_number)) {
-            $student_number_err = "WARNING: Invalid QR Pass!";
+            $student_number_err = "WARNING: Invalid QR Pass! ".$input_student_number;
         } elseif (mysqli_num_rows($uu2) < 1 ) {
-            $student_number_err = "WARNING: QR Pass is not registered! <br> Please approach the event admin.".$input_student_number;
+            $student_number_err = "WARNING: QR Pass is not registered! <br> Please approach the event admin. ".$input_student_number;
         } elseif ((mysqli_num_rows($uu) > 0) && ($input_time == "In")) {
-            $student_number_err = "WARNING: QR Pass already used. <br> Please approach the event admin.";
+            $student_number_err = "WARNING: QR Pass already used. <br> Please approach the event admin. ".$input_student_number;
         } elseif (True) { //nag True muna ako paki ayos pls.
             $student_number = $input_student_number;       
         }else{
-            $student_number_err = "Please enter a valid student number.";
+            $student_number_err = "Please enter a valid QR Pass.";
         }
 
         if (($input_time == "Out") && empty($student_number_err)) {
