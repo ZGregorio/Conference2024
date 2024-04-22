@@ -345,10 +345,10 @@
                 <span class=""> <?php 
                   if (!empty($last_name) && !empty($first_name) && (empty($input_time))) {
                     echo "<br><p style='font-size:20px;line-height: 0.7'>Welcome to <span style='color: red;'>UE</span> Tech Con 2024!,";
-                    echo "<p style='font-size:30px; line-height: 1;'>".$last_name.", ".$first_name." ".$middle_initial."."; 
+                    echo "<p style='font-size:30px; line-height: 1;'>".$last_name.", ".$first_name." ".$middle_initial.""; 
                   } elseif (!empty($last_name) && !empty($first_name) && (!empty($input_time))) {
                     echo "<br><p style='font-size:20px;line-height: 0.7'>Thank you for coming to <span style='color: red;'>UE</span> Tech Con 2024!,";
-                    echo "<p style='font-size:30px; line-height: 1;'>".$last_name.", ".$first_name." ".$middle_initial."."; 
+                    echo "<p style='font-size:30px; line-height: 1;'>".$last_name.", ".$first_name." ".$middle_initial.""; 
                   } else {
 
                   }
