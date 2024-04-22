@@ -30,6 +30,10 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $input_time = trim($_POST["time_type"]);
         $input_student_number = trim($_POST["student_number"]);
+        $input_student_number = (int) $student_number;
+        $input_student_number = dechex($student_number)[:7];
+        header("location: registration.php?".urlencode($student_number));
+
         $u = "SELECT student_number FROM attendees WHERE student_number ='$input_student_number' AND event_id='$event_id' AND time_in IS NOT NULL";
         $uu = $mysqli->query($u);
         $u = "SELECT student_number FROM student_info WHERE student_number ='$input_student_number'";
@@ -298,7 +302,7 @@
                 ?>
                 </select>
                   <br>
-                <input type="text" style="background-image: none; color: black; font-size:50pt; width:350px; margin: 0 auto; margin-left: auto; margin-right: auto; text-align:center;" name="student_number" id="student_number" class="form-control" value="<?php echo $student_number?>" autofocus maxlength="8"/>
+                <input type="text" style="background-image: none; color: black; font-size:50pt; width:350px; margin: 0 auto; margin-left: auto; margin-right: auto; text-align:center;" name="student_number" id="student_number" class="form-control" value="<?php echo $student_number?>" autofocus/>
                 <p style="font-size:20px; color:red"> <?php echo $student_number_err; ?> </p>
                 <p style="font-size:20px; color:red"> <?php echo $time_out_err; ?> </p>
                 <span class=""> <?php 
@@ -324,7 +328,7 @@
                 var input = document.querySelector('#student_number');
                 input.addEventListener('keyup', checkLength);
                 function checkLength(e){
-                    if(e.target.value.length===8){
+                    if(e.target.value.length>=20){
                         document.forms["form"].submit();
                     }
                 }
